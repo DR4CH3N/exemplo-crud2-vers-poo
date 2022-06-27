@@ -5,13 +5,11 @@ use CrudPoo\Fabricante;
 require_once "../vendor/autoload.php";
 
 $fabricante = new Fabricante;
-echo "<pre>";
-var_dump($fabricante);
-echo "</pre>";
+$listaDeFabricantes = $fabricante->LerFabricantes();
 
 
 
-// $listaDeFabricantes = LerFabricantes($conexao);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

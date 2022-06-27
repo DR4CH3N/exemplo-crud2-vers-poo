@@ -1,19 +1,32 @@
 <?php
 // verificando se o botão do form foi acionado
+
+use CrudPoo\Fabricante;
+
+require_once "../vendor/autoload.php";
+
 if (isset($_POST['inserir']) ) {
     // importando as funções e a conexão
-    require_once "../src/funcoes-fabricantes.php";
+    
+    // usamos o setter para definir o nome do novo fabricante
+    $fabricante->setNome( $_POST['nome'] );
+
+    $fabricante = new Fabricante;
 
     // capturando o que foi digitado no campo nome
     //$nome = $_POST['nome'];
-    $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+    $fabricante->setNome(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS)
+    );
     // filter input vai sanitizar o campo 'nome'  e vai adicionar o nome do filtro
 
+    $fabricante->inserirFabricante();
+
+    var_dump($fabricante);
+
     // chamando a função e passando os dados de conexão e o nome digitado
-    inserirFabricante($conexao, $nome);
 
     // redirecionamento, vai redirecionar para listar.php quando voce terminar de inserir um fabricante
-    header("location:listar.php");
+    // header("location:listar.php");
 }
 ?>
 <!DOCTYPE html>
