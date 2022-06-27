@@ -19,8 +19,9 @@ abstract class Banco {
     public static function conecta():PDO {
         try {
             self::$conexao = new PDO (
-            "mysql:host=".self::$servidor."
-            dbname=".self::$banco." charset=utf=8",
+            "mysql:host=".self::$servidor.";
+            dbname=".self::$banco."; 
+            charset=utf8",
             self::$usuario,
             self::$senha
             /*
@@ -29,7 +30,7 @@ abstract class Banco {
             );
             self::$conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            echo "OK!";
+            // echo "OK!";
         } catch (Exception $erro) {
             die ("deu ruim! ".$erro->getMessage());
         }
