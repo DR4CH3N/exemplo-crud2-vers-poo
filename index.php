@@ -8,11 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>CRUD - sistema vendas</h1>
+        <h1>CRUD - sistema vendas (versao POO)</h1>
         <hr>
         <p>
-            operações de <b>inserção</b>, <b>leitura</b>, <b>atualização</b> e <b>exclusão</b> de dados.
+           <i>
+            versao usando namespaces, composer, autoload, classes, metodos, propriedades
+           </i>
         </p>
+        <hr>
 
         <ul>
             <li><a href="fabricantes/listar.php">Fabricantes</a></li>
