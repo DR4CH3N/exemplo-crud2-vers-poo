@@ -1,9 +1,21 @@
 <?php
 use CrudPoo\Fabricante;
+use CrudPoo\Produto;
+
 require_once '../vendor/autoload.php';
+
+
 $fabricante = new Fabricante;
-$fabricante->setId( $_GET['id'] );
-$dadosFabricante = $fabricante->lerUmFabricante();
+$produto = new Produto;
+
+$listaDeFabricantes = $fabricante->LerFabricantes();
+
+// pegando o valor do id e sanitizando
+$produto->setId($_GET['id']);
+
+$dadosProduto = $produto->lerUmProduto();
+
+
 
 if (isset($_POST['atualizar'])) {
     $fabricante->setNome( $_POST['nome'] ); 
@@ -28,7 +40,7 @@ if (isset($_POST['atualizar'])) {
             <input type="hidden" name="<?=$dadosFabricante['id']?>">
             <p>
                 <label for="nome">Nome:</label>
-                <input value="<?=$dadosFabricante['nome']?>" type="text" name="nome" id="nome">
+                <input value="<?=$dadosProduto['nome']?>" type="text" name="nome" id="nome">
             </p>
             <button type="submit" name="atualizar">
                 Atualizar fabricante</button>
@@ -39,5 +51,6 @@ if (isset($_POST['atualizar'])) {
 
         <p><a href="../index.php">Home</a></p>
     </div>
+    
 </body>
 </html>
