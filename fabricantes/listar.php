@@ -1,15 +1,9 @@
 <?php
-
 use CrudPoo\Fabricante;
-
-require_once "../vendor/autoload.php";
+require_once "../vendor/autoload.php"; 
 
 $fabricante = new Fabricante;
-$listaDeFabricantes = $fabricante->LerFabricantes();
-
-
-
-
+$listaDeFabricantes = $fabricante->lerFabricantes();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -17,81 +11,61 @@ $listaDeFabricantes = $fabricante->LerFabricantes();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fabricantes - lista</title>
+    <title>Fabricantes - Lista</title>
 </head>
 <body>
     <div class="container">
-        <h1>Fabricantes | SELECT</h1>
+        <h1>Fabricantes | SELECT - <a href="../index.php">Home</a></h1>
         <hr>
         <h2>Lendo e carregando todos os fabricantes</h2>
 
         <p>
-            <a href="inserir.php">Inserir um novo fabricante</a>
+            <a href="inserir.php">
+                Inserir um novo fabricante
+            </a>
         </p>
-        <!-- faz a att do fabricante -->
-        <?php if(isset($_GET['status']) && $_GET ['status'] == 'sucesso') { ?>
-        <p>Fabricante atualizado com sucesso!</p>
-        <?php } ?>
 
-        <!--</?php if(isset($_GET['status']) ) { ?>
+    
+    <?php if(isset($_GET['status']) && $_GET['status'] == 'sucesso'){ ?>
         <p>Fabricante atualizado com sucesso!</p>
-        </?php } ?/> -->
-        
+    <?php } ?>
+
         <table>
-            <caption>Lista de fabricantes</caption>
+            <caption>Lista de Fabricantes</caption>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
                     <th colspan="2">Operações</th>
-                    <!-- colspan faz com que uma coluna se mescle (fazer a mesclagem) a outra -->
                 </tr>
             </thead>
             <tbody>
-        <?php 
-        // string com o comando SQL
-       
+<?php foreach ($listaDeFabricantes as $fabricante) { ?>
+    <tr>
+        <td> <?=$fabricante["id"]?> </td>
+        <td> <?=$fabricante["nome"]?> </td>
+    <td> 
+<a href="atualizar.php?id=<?=$fabricante['id']?>">
+        Atualizar</a> </td>
+<td> 
 
-        // preparação do comando
-        
-
-        // execução do comando
-        
-
-        // capturar os resultados
-       
-
-     // echo"<pre>";
-     // var_dump($resultado);
-     // echo"</pre>";
+<!-- <a onclick="return confirm('Deseja realmente excluir?')" -->
 
 
-foreach ($listaDeFabricantes as $fabricante) {
-        ?> 
-        
-        
-        <tr>
-            <td><?=$fabricante["id"]?></td>
-            <td><?=$fabricante["nome"]?></td>
-                                        <!-- valor do parametro  -->
-            <td><a href="atualizar.php?id=<?=$fabricante['id']?>">atualizar</a></td>
-            <td><a class="excluir" href="excluir.php?id=<?=$fabricante['id']?>">Excluir</a></td>
-            <?php 
-            
-            ?>
-                     <!-- parametro de URL -->
-                     <!-- "&" faz a concatenação caso voce quiser concatenar varios parametros -->
-            <!-- quando voce tem uma interrogação no link voce esta criando um parametro -->
-        </tr> 
-        <?php
-       }
-        ?>
+<a class="excluir" href="excluir.php?id=<?=$fabricante['id']?>">Excluir</a> </td>
+    </tr>
+<?php
+    }
+?>
+
             </tbody>
         </table>
+
     </div>
 
-    <script src="../js/confirmacao.js"></script>
+<script src="../js/confirm.js"></script>
 
-    <!-- <a onclick="return confirm('Deseja mesmo excluir?')" -->
+
+
 </body>
 </html>

@@ -1,2 +1,2 @@
-# exemplo-php-crud-2
- atividades crud usando php e sql
+# exemplo-php-crud
+ Atividades CRUD usando PHP e SQL

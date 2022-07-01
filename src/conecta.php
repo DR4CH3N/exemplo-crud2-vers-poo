@@ -1,42 +1,20 @@
-<?php 
-    // SCRIPT DE CONEXAO AO SERVIDOR BANCO DE DADOS
-    $servidor = "localhost";
-    $usuario = "root";
-    $senha = "";
-    $banco = "vendas";
+<?php
+/* SCRIPT DE CONEXÃO AO SERVIDOR BANCO DE DADOS */
 
-    // try/catch
+// Parâmetros
+$servidor = "localhost";
+$usuario = "root";
+$senha = "";
+$banco = "vendas";
 
-    try {
-        $conexao = new PDO( // PDO é uma API
-            "mysql:host=$servidor; dbname=$banco; charset=utf8",
-            $usuario,
-            $senha);
+try {
+    // Criando a conexão com o MySQL (API/Driver de conexão)
+    $conexao = new PDO("mysql:host=$servidor; dbname=$banco; charset=utf8",$usuario, $senha);
 
-         // habilita a verificação de erros
-        $conexao->setAttribute(
-        PDO::ATTR_ERRMODE, // constante de erros em geral 
-        PDO::ERRMODE_EXCEPTION); // constante de exceções de erro
-    
-    } catch (Exception $erro){
-        die("erro: " .$erro->getMessage()); // die vai mostrar uma mensagem personalizada e vai parar o programa completamente.
-        // getline vai mostrar a linha em que esta dando erro no codigo
-        
-    }
-     // string com o comando SQL
-     // $sql = "SELECT id, nome FROM fabricantes";
+    // Habilita a verificação de erros (em geral e exceções)
+    $conexao->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-     // preparação do comando
-     // $consulta = $conexao->prepare($sql);
-
-     // execução do comando
-     // $consulta->execute();
-
-     // capturar os resultados
-     //  $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
-
-     // echo"<pre>";
-     // var_dump($resultado);
-     // echo"</pre>";
-
+} catch(Exception $erro){
+    die("Deu ruim: " .$erro->getMessage());
+}
 

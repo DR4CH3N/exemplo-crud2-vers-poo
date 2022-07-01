@@ -1,9 +1,9 @@
 <?php
-    require_once "../src/funcoes-produtos.php";
-$listaDeProdutos = lerProdutos($conexao);
-// dump($listaDeProdutos);
+use CrudPoo\Produto;
+require_once "../vendor/autoload.php";
+$produto = new Produto;
+$listaDeProdutos = $produto->lerProdutos();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,45 +14,30 @@ $listaDeProdutos = lerProdutos($conexao);
 </head>
 <body>
     <div class="container">
-        <h1>Produtos - Lista</h1>
+        <h1>Produtos | SELECT - <a href="../index.php">Home</a></h1>
         <hr>
-        <h2>Lendo e carregando todos os Produtos</h2>
+        <h2>Lendo e carregando todos os produtos</h2>
+        <p><a href="inserir.php">Inserir um novo produto</a></p> 
 
-        <p>
-            <a href="inserir.php">Inserir um novo Produto</a>
-        </p>
-        
-   
-        
-    <?php
-    foreach ($listaDeProdutos as $produto) {
-        ?> 
-        
-        
         <div class="produtos">
+        <?php foreach($listaDeProdutos as $produto){ ?>    
             <article>
-             <!-- ID DO PRODUTO -->
-             <p>ID <?=$produto["id"]?></p>
-            <p>Nome do produto: <?=$produto["produto"]?></p> <!-- NOME DO PRODUTO -->
-            <p>Descrição: <?=$produto["descricao"]?></p> <!-- DESCRIÇÃO DO PRODUTO -->
-            <p>Preço: R$<?=number_format($produto["preco"], 2, ",", ".")?></p> <!-- PREÇO DO PRODUTO -->
-            <p>Quantidade: <?=$produto["quantidade"]?></p> <!-- QUANTIDADE DO PRODUTO -->
-            <p>Fabricante: <?=$produto["fabricante"]?></p> <!-- ID DO FABRICANTE -->
-            
+                <h3> <?=$produto['produto']?> </h3>
+                <p>Preço: R$
+                <?=number_format($produto['preco'], 2, ",", ".")?>
+                </p>
+                <p>Quantidade: <?=$produto['quantidade']?></p>
+                <p><?=$produto['descricao']?></p>
+                <p>Fabricante: <?=$produto['fabricante']?></p>
+                <p>
+                    <a href="atualizar.php?id=<?=$produto['id']?>">Atualizar</a> - 
+                    <a class="excluir" href="excluir.php?id=<?=$produto['id']?>">Excluir</a>
+                </p>
+            </article>            
+        <?php } ?>
+        </div>
 
-                                        <!-- valor do parametro  -->
-            <P><a href="atualizar.php?id=<?=$produto['id']?>">atualizar produto</a></P>
-            <p><a class="excluir" href="excluir.php?id=<?=$produto['id']?>">Excluir produto</a></p>
-                     <!-- parametro de URL -->
-                     <!-- "&" faz a concatenação caso voce quiser concatenar varios parametros -->
-            <!-- quando voce tem uma interrogação no link voce esta criando um parametro -->
-            </article>
-        <?php
-       }
-        ?>
     </div>
-        
-        <script src="../js/confirmacao.js"></script>
-    
+    <script src="../js/confirm.js"></script>
 </body>
 </html>
