@@ -1,3 +1,63 @@
+<?php
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
+if (isset($_POST['enviar'])) {
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $assunto = $_POST['assunto'];
+    $mensagem = $_POST['mensagem'];
+}
+
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
+$mail->CharSet = "UTF-8";
+
+try {
+    //Server settings
+    $mail->isSMTP();
+    $mail->Host = 'smtp.mailtrap.io';
+    $mail->SMTPAuth = true;
+    $mail->Port = 2525;
+    $mail->Username = '7fb659e987c901';
+    $mail->Password = '95e59bc2a080bf';
+
+    //Quem envia
+    $mail->setFrom('fulano@outlook.com', 'Site crud');
+
+    // que recebe
+    $mail->addAddress('cicrano@outlook.com', 'fulano');    
+          
+    $mail->addReplyTo($email, 'Retorno do contato');
+
+    //Attachments
+
+
+    //Content
+    $mail->isHTML(true);         
+
+    //Set email format to HTML
+    $mail->Subject = "contato site - ".$assunto;
+
+    // corpo da mensagem
+    $mail->Body    = "<b>Nome:</b> $nome <br> <b>E-mail:</b> $email <br> <b>assunto: $assunto</b> <br> <b>Mensagem:</b> $mensagem";
+
+
+    $mail->AltBody = "Nome: $nome \n E-mail: $email \n Assunto: $assunto \n Mensagem> $mensagem";
+
+    $mail->send();
+    echo 'Mensagem foi enviada!';
+} catch (Exception $e) {
+    echo "infelizmente nao conseguimos enviar seus dados :( {$mail->ErrorInfo}";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
